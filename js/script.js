@@ -71,7 +71,6 @@ function text() {
 			div.appendChild(startHighlightedSpan);
 
 			let inputText = text.substring(text.indexOf("&gt;") + 4, text.lastIndexOf("&lt;"));
-			// <input type="text" style="width: 40px; height 20px"></input>;
 			let innerSpan = document.createElement("span");
 			inputText = inputText.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
 			innerSpan.innerHTML = inputText;
