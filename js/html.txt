@@ -6,45 +6,45 @@
 </head>
 <body>
 	<form action="http://se.shenkar.ac.il/teach/web1/get_form3.php" method="get">
-		<label for="">Full Name</label>
+		<label>Full Name</label>
 		<input type="text" name="fullName" placeholder="Full Name" autocomplete="name">
 
-		<label for="">Password</label>
+		<label>Password</label>
 		<input type="password" name="pass" placeholder="Password" pattern="[a-zA-Z0-9]{5,10}" autocomplete="current-password">
 
-		<label for="">Email</label>
+		<label>Email</label>
 		<input type="email" name="mail" placeholder="Email" autocomplete="email">
 
-		<label for="">Website</label>
+		<label>Website</label>
 		<input type="url" name="website" placeholder="URL For Website" autocomplete="url">
 
-		<label for="">Phone</label>
+		<label>Phone</label>
 		<input type="tel" name="phone" placeholder="Phone Number" autocomplete="tel">
 
-		<label for="">Coffee</label>
+		<label>Coffee</label>
 		<input type="text" name="coffee" placeholder="Which coffiee do you like">
 
-		<label for="">Temperature</label>
+		<label>Temperature</label>
 		<input type="range" name="temper" placeholder="Temperature">
 
-		<label for="">Address</label>
+		<label>Address</label>
 		<input type="text" name="address" placeholder="Address" autocomplete="street-address">
 
 		<div>
-			<label for="">Interests:</label>
-			<label for="">Playing Guitar:</label>
+			<label>Interests:</label>
+			<label>Playing Guitar:</label>
 			<input type="checkbox" name="interests[]" placeholder="Temperature" value="Playing Guitar">    
-			<label for="">Playing Piano:</label>
+			<label>Playing Piano:</label>
 			<input type="checkbox" name="interests[]" placeholder="Temperature" value="Playing Piano">
-			<label for="">Playing Drums:</label>
+			<label>Playing Drums:</label>
 			<input type="checkbox" name="interests[]" placeholder="Temperature" value="Playing Drums">
 		</div>
 
 		<div>
-			<label for="">Gender</label>
-			<label for="">Male</label>
+			<label>Gender</label>
+			<label>Male</label>
 			<input type="radio" name="gender" value="Male">
-			<label for="">Female</label>
+			<label>Female</label>
 			<input type="radio" name="gender" value="Female">
 		</div>
 
