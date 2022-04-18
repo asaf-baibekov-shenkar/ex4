@@ -157,7 +157,7 @@ nav .navbtn .container:hover svg {
     overflow: scroll;
 }
 
-.code .container form {
+.code .container #text {
     overflow: scroll;
 }
 
