@@ -8,20 +8,28 @@
 	<form action="http://se.shenkar.ac.il/teach/web1/get_form3.php" method="get">
 		<label for="">Full Name</label>
 		<input type="text" name="fullName" placeholder="Full Name" autocomplete="name">
+
 		<label for="">Password</label>
 		<input type="password" name="pass" placeholder="Password" pattern="[a-zA-Z0-9]{5,10}" autocomplete="current-password">
+
 		<label for="">Email</label>
 		<input type="email" name="mail" placeholder="Email" autocomplete="email">
+
 		<label for="">Website</label>
 		<input type="url" name="websile" placeholder="URL For Website" autocomplete="url">
+
 		<label for="">Phone</label>
 		<input type="tel" name="phone" placeholder="Phone Number" autocomplete="tel">
+
 		<label for="">Coffee</label>
 		<input type="text" name="coffee" placeholder="Which coffiee do you like">
+
 		<label for="">Temperature</label>
 		<input type="range" name="temper" placeholder="Temperature">
+
 		<label for="">Address</label>
 		<input type="text" name="address" placeholder="Address" autocomplete="street-address">
+
 		<div>
 			<label for="">Interests:</label>
 			<label for="">Playing Guitar:</label>
@@ -31,6 +39,7 @@
 			<label for="">Playing Drums:</label>
 			<input type="checkbox" name="interests[]" placeholder="Temperature" value="Playing Drums">
 		</div>
+
 		<div>
 			<label for="">Gender</label>
 			<label for="">Male</label>
@@ -38,6 +47,7 @@
 			<label for="">Female</label>
 			<input type="radio" name="gender" value="Female">
 		</div>
+
 		<div>
 			<select name="age">
 				<option value="21">21</option>
