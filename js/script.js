@@ -104,7 +104,6 @@ function text() {
 								.reduce((previousValue, currentValue) => previousValue + currentValue, "")
 								.replaceAll("&lt;", "<")
 								.replaceAll("&gt;", ">");
-			console.log(selectAge);
 			let div = document.createElement("div");
 			let innerSpan = document.createElement("span");
 			innerSpan.innerHTML = selectAge;
