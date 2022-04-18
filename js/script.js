@@ -1,6 +1,20 @@
 window.onload = function() {
 	text();
+	validateChackboxes()
 }
+
+function validateChackboxes() {
+	let form = document.querySelector("form");
+	form.onsubmit = (event) => {
+		let countChecked = Array.from(document.querySelectorAll("input[type=checkbox]"))
+								.map(checkbox => checkbox.checked)
+								.reduce((previous, current) => previous + (current == true ? 1 : 0), 0);
+		if (countChecked >= 2) return;
+		alert("at least 2 interests should be collected");
+		event.preventDefault();
+	}
+}
+
 
 function readStringFromFileAtPath(pathOfFileToReadFrom) {
 	var request = new XMLHttpRequest();
