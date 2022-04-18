@@ -13,10 +13,11 @@ function readStringFromFileAtPath(pathOfFileToReadFrom) {
 function handleInput(string) {
 	let innerTag = string.substring(string.indexOf("&lt;") + 4, string.indexOf("&gt;"));
 	if (!innerTag.includes("input")) return null;
-	let start = innerTag.indexOf("type=\"") + 6;
-	let sub = innerTag.substring(start)
-	let attributeValueSubstring = sub.substring(0, sub.indexOf("\""))
-	let innerHTML = `&lt;input type="${attributeValueSubstring}" style="width: 150px;"&gt;&lt;/input&gt;`
+	let arrtibutes = innerTag.split(" ").reduce(
+		(previousValue, currentValue, currentIndex) => previousValue + " " + (currentIndex != 0 ? currentValue : ""),
+		""
+	);
+	let innerHTML = `&lt;input ${arrtibutes} style="width: 150px;"&gt;&lt;/input&gt;`
 	return string.substring(0, string.indexOf("&gt;") + 4) + innerHTML + string.substring(string.indexOf("&gt;") + 4, string.length)
 }
 
