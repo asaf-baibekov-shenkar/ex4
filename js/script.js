@@ -13,12 +13,40 @@ function readStringFromFileAtPath(pathOfFileToReadFrom) {
 function handleInput(string) {
 	let innerTag = string.substring(string.indexOf("&lt;") + 4, string.indexOf("&gt;"));
 	if (!innerTag.includes("input")) return null;
-	let arrtibutes = innerTag.split(" ").reduce(
+	let attributes = innerTag.split(" ").reduce(
 		(previousValue, currentValue, currentIndex) => previousValue + " " + (currentIndex != 0 ? currentValue : ""),
 		""
 	);
-	let innerHTML = `&lt;input ${arrtibutes} style="width: 150px;"&gt;&lt;/input&gt;`
+	let innerHTML = `&lt;input ${attributes} style="width: 150px;"&gt;&lt;/input&gt;`
 	return string.substring(0, string.indexOf("&gt;") + 4) + innerHTML + string.substring(string.indexOf("&gt;") + 4, string.length)
+}
+
+function handleSelect(string, strings) {
+	let innerTag = string.substring(string.indexOf("&lt;") + 4, string.indexOf("&gt;"));
+	if (!innerTag.includes("select") && !innerTag.includes("option")) return null;
+	let attributes = innerTag.split(" ").reduce(
+		(previousValue, currentValue, currentIndex) => previousValue + " " + (currentIndex != 0 ? currentValue : ""),
+		""
+	).slice(1);
+	let inside = "";
+	if (string.indexOf("&gt;") != -1 && string.indexOf("&lt;/") != -1 && string.indexOf("&gt;") < string.indexOf("&lt;/")) {
+		inside = string.substring(string.indexOf("&gt;") + 4, string.indexOf("&lt;/"));
+	}
+
+
+	let indentations = string.substring(0, string.indexOf("&lt;"));
+	let startTagName = innerTag.substring(0, innerTag.indexOf(" "));
+	if (startTagName != "")
+		startTagName = `&lt;${startTagName}${attributes}&gt;`
+	let endTagName = "";
+	if (string.lastIndexOf("&lt;/") != -1) {
+		endTagName = "&lt;/" + string.substring(string.lastIndexOf("&lt;/") + 5, string.lastIndexOf("&gt;")) + "&gt;";
+	}
+
+	
+	let innerHTML = `${indentations}${startTagName}${inside}${endTagName}`
+	strings.push(innerHTML)
+	return strings;
 }
 
 function text() {
@@ -41,6 +69,7 @@ function text() {
 	}
 	let textElement = document.getElementById("text");
 	let numbersElement = document.getElementById("numbers");
+	let selectArray = []
 	for (let i = 0; i < elements.length; i++) {
 		let numberDiv = document.createElement("div");
 		numberDiv.innerHTML =
@@ -54,35 +83,56 @@ function text() {
 				</svg>
 			</div>`;
 		numbersElement.append(numberDiv);
-		
-		let text = handleInput(elements[i]);
-		if (text == null) {
+
+		let openTag = elements[i].substring(elements[i].indexOf("&lt;"), elements[i].indexOf("&gt;") + 4);
+		let closeTag = elements[i].substring(elements[i].indexOf("&lt;/"), elements[i].indexOf("&gt;") + 4);
+
+		if (openTag.includes("&lt;select") || openTag.includes("&lt;option")) {
+			selectArray = handleSelect(elements[i], selectArray);
+		} else if (closeTag.includes("&lt;/select")) {
+			selectArray = handleSelect(elements[i], selectArray);
+			for (let j = 0; j < selectArray.length; j++) {
+				const text = selectArray[j];
+				let div = document.createElement("div");
+				let startHighlightedSpan = document.createElement("span");
+				startHighlightedSpan.innerHTML = text.substring(0, text.lastIndexOf("&gt;") + 4)
+				highlight(startHighlightedSpan);
+				div.appendChild(startHighlightedSpan);
+				textElement.appendChild(div);
+			}
+			let selectAge = selectArray
+								.reduce((previousValue, currentValue) => previousValue + currentValue, "")
+								.replaceAll("&lt;", "<")
+								.replaceAll("&gt;", ">");
+			console.log(selectAge);
 			let div = document.createElement("div");
-			let span = document.createElement("span");
-			span.innerHTML = elements[i];
-			highlight(span);
-			div.appendChild(span);
+			let innerSpan = document.createElement("span");
+			innerSpan.innerHTML = selectAge;
+			innerSpan.firstElementChild.style.width = "150px";
+			div.appendChild(innerSpan);
 			textElement.appendChild(div);
 		} else {
-			let div = document.createElement("div");
-
-			let startHighlightedSpan = document.createElement("span");
-			startHighlightedSpan.innerHTML = text.substring(0, text.indexOf("&gt;") + 4)
-			highlight(startHighlightedSpan);
-			div.appendChild(startHighlightedSpan);
-
-			let inputText = text.substring(text.indexOf("&gt;") + 4, text.lastIndexOf("&lt;"));
-			let innerSpan = document.createElement("span");
-			inputText = inputText.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
-			innerSpan.innerHTML = inputText;
-			div.appendChild(innerSpan);
-
-			let endHighlightedSpan = document.createElement("span");
-			endHighlightedSpan.innerHTML = text.substring(text.lastIndexOf("&lt;"), text.length);
-			highlight(endHighlightedSpan);
-			div.appendChild(endHighlightedSpan);
-
-			textElement.appendChild(div);
+			let text = handleInput(elements[i]);
+			if (text == null) {
+				let div = document.createElement("div");
+				let span = document.createElement("span");
+				span.innerHTML = elements[i];
+				highlight(span);
+				div.appendChild(span);
+				textElement.appendChild(div);
+			} else {
+				let div = document.createElement("div");
+				let startHighlightedSpan = document.createElement("span");
+				startHighlightedSpan.innerHTML = text.substring(0, text.indexOf("&gt;") + 4)
+				highlight(startHighlightedSpan);
+				div.appendChild(startHighlightedSpan);
+				let inputText = text.substring(text.indexOf("&gt;") + 4, text.lastIndexOf("&lt;"));
+				let innerSpan = document.createElement("span");
+				inputText = inputText.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+				innerSpan.innerHTML = inputText;
+				div.appendChild(innerSpan);
+				textElement.appendChild(div);
+			}
 		}
 	}
 }
