@@ -19,7 +19,7 @@
 		<input type="url" name="website" placeholder="URL For Website" autocomplete="url" required>
 
 		<label>Phone</label>
-		<input type="tel" name="phone" placeholder="Phone Number" autocomplete="tel" required>
+		<input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{9,10}" autocomplete="tel" required>
 
 		<label>Coffee</label>
 		<input type="text" name="coffee" placeholder="Which coffiee do you like" required>
