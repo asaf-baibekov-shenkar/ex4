@@ -16,7 +16,7 @@
 		<input type="email" name="mail" placeholder="Email" autocomplete="email">
 
 		<label for="">Website</label>
-		<input type="url" name="websile" placeholder="URL For Website" autocomplete="url">
+		<input type="url" name="website" placeholder="URL For Website" autocomplete="url">
 
 		<label for="">Phone</label>
 		<input type="tel" name="phone" placeholder="Phone Number" autocomplete="tel">
